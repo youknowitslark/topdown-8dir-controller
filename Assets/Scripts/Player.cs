@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rb;
     private Animator _animator;
     private Vector2 _movement;
+    private Vector2 _currentDirection;
 
     private void Awake() 
     {
@@ -37,8 +38,11 @@ public class Player : MonoBehaviour
 
     private void SetAnimation() 
     {
-        _animator.SetFloat(VERTICAL, _movement.y);
-        _animator.SetFloat(HORIZONTAL, _movement.x);
+        if (_movement.sqrMagnitude > 0)
+            _currentDirection = _movement;
+
+        _animator.SetFloat(VERTICAL, _currentDirection.y);
+        _animator.SetFloat(HORIZONTAL, _currentDirection.x);
         _animator.SetFloat("Speed", _movement.sqrMagnitude);
     }
 
